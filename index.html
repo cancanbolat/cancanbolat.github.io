@@ -1,50 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- import style.css -->
+    <link rel="stylesheet" href="style.css">
 
-	<title>Can Canbolat</title>
+    <!-- import script.js -->
+    <script src="script.js"></script>
 
-	<link rel="icon" href="favicon.ico" type="image/png" />
+    <!-- import three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
-	<link href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/styles.css">
-	<!--<link rel="stylesheet" href="css/themes/indigo-white.css">-->
-	<!-- <link rel="stylesheet" href="css/themes/green-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/red-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/grey-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/white-indigo.css"> -->
-	 <link rel="stylesheet" href="css/themes/white-blue.css"> 
-	<!-- <link rel="stylesheet" href="css/themes/white-grey.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/white-red.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/yellow-black.css"> -->
+    <!-- import OrbitControls.js -->
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- import TweenMax.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+
+    <!-- import fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
+
 <body>
-	<main>
-		<div class="intro">Hello, I'm Can Canbolat!</div>
-		<div class="tagline">Full Stack Software Developer</div>
-		<div class="icons-social">
-			<a target="_blank" href="https://github.com/cancanbolat">
-        <i class="fab fa-github" aria-hidden="true" title="Github"></i>
-        <span class="sr-only">Github</span>
-      </a>
-      <a target="_blank" href="https://www.linkedin.com/in/cancanbolat1907">
-        <i class="fab fa-linkedin" aria-hidden="true" title="LinkedIn"></i>
-        <span class="sr-only">LinkedIn</span>
-      </a>
-      <a target="_blank" href="https://medium.com/@canbolatcan">
-        <i class="fab fa-medium" aria-hidden="true" title="Medium"></i>
-        <span class="sr-only">Medium</span>
-      </a>
-	 <a target="_blank" href="https://tr.pinterest.com/canxmcclynd1">
-        	<i class="fab fa-pinterest" aria-hidden="true" title="Pinterest"></i>
-        <span class="sr-only">Medium</span>
-      </a>
+    <script type="x-shader/x-vertex" id="vertexshader">
+
+        attribute float size;
+        attribute vec3 customColor;
+        varying vec3 vColor;
+      
+        void main() {
+      
+          vColor = customColor;
+          vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+          gl_PointSize = size * ( 300.0 / -mvPosition.z );
+          gl_Position = projectionMatrix * mvPosition;
+      
+        }
+      
+      </script>
+    <script type="x-shader/x-fragment" id="fragmentshader">
+
+       uniform vec3 color;
+       uniform sampler2D pointTexture;
+      
+       varying vec3 vColor;
+      
+       void main() {
+      
+         gl_FragColor = vec4( color * vColor, 1.0 );
+         gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+      
+       }
+      </script>
+
+    <div id="magic"></div>
+    <div class="playground">
+        <div class="bottomPosition">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 278.8 278.8">
+                <circle fill="#000205" cx="139.4" cy="139.4" r="139.4" />
+                <g fill="none" stroke="#FFF" stroke-width="6.062" stroke-miterlimit="10">
+                    <path d="M214 183.4l-74.6 43.1-75.5-43.6V95.8l75.5-43.5 75.4 43.5v59.8l-11.3 6.5z" />
+                    <path
+                        d="M139.4 226.5l-18.8-38.2 18.8 10.8 75.4-43.5M63.9 95.8l75.3 43.6 75.6-43.6M139.2 139.4v59.7" />
+                </g>
+            </svg>
+            <h1 class="special">CAN CANBOLAT <br><span class="minText">Full Stack Developer</span></h1>
+            <ul class="social-media-links">
+                <li>
+                    <a target="_blank" href="https://github.com/cancanbolat">
+                        Github
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://www.linkedin.com/in/cancanbolat1907">
+                        LinkedIn
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://tr.pinterest.com/canxmcclynd1">
+                        Pinterest
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        
     </div>
-	</main>
 </body>
+
 </html>
