@@ -33,39 +33,9 @@ const preload = () => {
   
     bindEvents(){
   
-        window.addEventListener( 'resize', this.onWindowResize.bind( this ));
-
-        document.addEventListener('touchstart', this.onTouchStart.bind(this));
-        document.addEventListener('touchmove', this.onTouchMove.bind(this));
-        document.addEventListener('touchend', this.onTouchEnd.bind(this));
+      window.addEventListener( 'resize', this.onWindowResize.bind( this ));
       
     }
-
-    onTouchStart(event) {
-        this.mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-        this.mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
-    
-        const vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
-        vector.unproject(this.camera);
-        const dir = vector.sub(this.camera.position).normalize();
-        const distance = -this.camera.position.z / dir.z;
-        this.currenPosition = this.camera.position.clone().add(dir.multiplyScalar(distance));
-    
-        const pos = this.particles.geometry.attributes.position;
-        this.buttom = true;
-        this.data.ease = .01;
-    }
-    
-    onTouchMove(event) {
-        this.mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-        this.mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
-    }
-    
-    onTouchEnd() {
-        this.buttom = false;
-        this.data.ease = .05;
-    }
-    
   
     setup(){ 
   
@@ -127,11 +97,11 @@ const preload = () => {
   
           this.data = {
   
-              text: 'FUTURE\nIS NOW',
+              text: 'CAN\nCANBOLAT',
               amount: 1500,
               particleSize: 1,
               particleColor: 0xffffff,
-              textSize: 16,
+              textSize: 9,
               area: 250,
               ease: .05,
           }
@@ -158,7 +128,36 @@ const preload = () => {
           document.addEventListener( 'mousemove', this.onMouseMove.bind( this ));
           document.addEventListener( 'mouseup', this.onMouseUp.bind( this ));
           
+          document.addEventListener('touchstart', this.onTouchStart.bind(this));
+          document.addEventListener('touchmove', this.onTouchMove.bind(this));
+          document.addEventListener('touchend', this.onTouchEnd.bind(this));
       }
+
+      onTouchStart(event) {
+        this.mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+    
+        const vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
+        vector.unproject(this.camera);
+        const dir = vector.sub(this.camera.position).normalize();
+        const distance = -this.camera.position.z / dir.z;
+        this.currenPosition = this.camera.position.clone().add(dir.multiplyScalar(distance));
+    
+        const pos = this.particles.geometry.attributes.position;
+        this.buttom = true;
+        this.data.ease = .01;
+    }
+    
+    onTouchMove(event) {
+        this.mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+    }
+    
+    onTouchEnd() {
+        this.buttom = false;
+        this.data.ease = .05;
+    }
+    
   
       onMouseDown(){
           
